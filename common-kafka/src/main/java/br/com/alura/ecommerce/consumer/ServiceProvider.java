@@ -1,0 +1,23 @@
+package br.com.alura.ecommerce.consumer;
+
+import java.util.HashMap;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+
+public class ServiceProvider<T> implements Callable<Void> {
+    private final ServiceFactory<T> factory;
+
+    public ServiceProvider(ServiceFactory<T> factory) {
+        this.factory = factory;
+    }
+
+    public Void call() throws Exception {
+        var serviceHandler = factory.create();
+
+        try(var service = new KafkaService(serviceHandler.getConsumerGroup(), serviceHandler.getTopic(), serviceHandler::parse, new HashMap<>())){
+            service.run();
+        }
+
+        return null;
+    }
+}

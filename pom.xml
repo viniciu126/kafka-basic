@@ -16,6 +16,9 @@
         <module>common-kafka</module>
         <module>service-users</module>
         <module>service-http-ecommerce</module>
+        <module>service-reading-report</module>
+        <module>service-email-new-order</module>
+        <module>common-database</module>
     </modules>
 
     <dependencies>
